@@ -1,11 +1,15 @@
 import processing.sound.*;
 
 public class UserInterface{
-    
-    public UserInterface(int scale_) {
+    GUI currentGUI;
+    GUI main, pause;
 
+    public UserInterface(int scale_) {
+        main = new GUIMain(color(255), color(0));
+        currentGUI = main;
     }
     
+
     public void display() {
         displayBackground();
         currentGUI.display();

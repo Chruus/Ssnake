@@ -1,7 +1,6 @@
-public class GUITemplate extends GUI{
+public class GUIMain extends GUI{
     
-    public GUITemplate(int scale_, color textColor, color backgroundColor) {
-        super(scale_);
+    public GUIMain(color textColor, color backgroundColor) {
     }
     
     public void display() {

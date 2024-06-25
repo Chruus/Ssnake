@@ -1,8 +1,6 @@
 public abstract class GUI{
-    private int scale;
     
-    public GUI(int scale_) {
-        scale = scale_;
+    public GUI() {
     }
     
     public abstract void display();
