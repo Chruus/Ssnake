@@ -2,13 +2,13 @@ import java.util.*;
 import java.io.*;
 
 void settings(){
-    size(16*32 + 16*2, 16*32 + 16*3);
+    scale = 32;
+    gameSize = 16;
+    squareWidth = (int) (scale * 0.95);
+    size(gameSize * scale + scale * 2, gameSize * scale + scale * 3);
 }
 
 void setup(){
-    squareWidth = 14;
-    scale = 16;
-    gameSize = 32;
     snake = new Snake();
     apple = new Apple();
     inputs = new LinkedList<Integer>();
@@ -32,7 +32,7 @@ void draw(){
     snake.display();
 
     findDeltaTime();
-    if(deltaTime < 133.3333)
+    if(deltaTime < 66.6666)
         return;
     
     handleInputs();
@@ -102,7 +102,7 @@ private boolean isValidInput(int code){
 
 private void findDeltaTime(){
     deltaTime = millis() - timeOfLastFrame;
-    if(deltaTime > 133.3333)
+    if(deltaTime > 66.6666)
         timeOfLastFrame = millis();
 }
 

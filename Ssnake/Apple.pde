@@ -22,7 +22,6 @@ public class Apple{
         x = (int)(Math.random() * gameSize);
         y = (int)(Math.random() * gameSize);
 
-        println(snake.x(), snake.y(), x, y);
         if(snake.collides(x, y))
             respawn(snake);
     }
