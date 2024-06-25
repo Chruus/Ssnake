@@ -2,11 +2,11 @@ import java.util.*;
 import java.io.*;
 
 void settings(){
-    size(16*32, 16*32);
+    size(16*32 + 16*2, 16*32 + 16*4);
 }
 
 void setup(){
-    squareWidth = 16;
+    squareWidth = 14;
     scale = 16;
     gameSize = 32;
     snake = new Snake();
@@ -14,7 +14,7 @@ void setup(){
     inputs = new LinkedList<Integer>();
 
     snake.reset();
-    //apple.respawn(snake);
+    apple.respawn(snake);
 }
 
 Snake snake;
@@ -30,12 +30,40 @@ void draw(){
 
     apple.display();
     snake.display();
-    println(snake.x() + " " + snake.y());
+    displayHUD();
 
     findDeltaTime();
     if(deltaTime < 133.3333)
         return;
     
+    handleInputs();
+
+    if(snake.collides(apple.x(), apple.y())){
+        snake.grow();
+        apple.respawn(snake);
+    }
+
+    snake.move();
+    if(snake.collidesWithTail() || snake.collidesWithWall()){
+        snake.display();
+        stop();
+    }
+}
+
+private void displayHUD(){
+    pushMatrix();
+    pushStyle();
+    
+    strokeWeight(0);
+    fill(125);
+    rect(0, 0, gameSize * scale + scale * 2, scale * 3);
+    rect(0, 0, scale, gameSize * scale + scale * 4);
+
+    popStyle();
+    popMatrix();
+}
+
+private void handleInputs(){
     int currentKeyCode = -1;
     while(!isValidInput(currentKeyCode) && !inputs.isEmpty())
         currentKeyCode = inputs.remove();
@@ -50,8 +78,6 @@ void draw(){
         if(currentKeyCode == DOWN)
             snake.changeDirection("down");
     }
-
-    snake.move();
 }
 
 private boolean isValidInput(int code){
@@ -78,4 +104,6 @@ private void findDeltaTime(){
 
 public void keyPressed(){
     inputs.add(keyCode);
+    if(key == ' ')
+        snake.grow();
 }

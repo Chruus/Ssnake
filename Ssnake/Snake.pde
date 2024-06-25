@@ -5,7 +5,8 @@ public class Snake{
 
     public Snake(){
         x = y = -1000;
-        xPositions = yPositions = new ArrayList<Integer>();
+        xPositions = new ArrayList<Integer>();
+        yPositions = new ArrayList<Integer>();
     }
 
     public void changeDirection(String newDirection){
@@ -22,6 +23,12 @@ public class Snake{
     }
 
     public void move(){
+        if(xPositions.size() > 0){
+            xPositions.remove(0);
+            yPositions.remove(0);
+            xPositions.add(x);
+            yPositions.add(y);
+        }
         x += xDir;
         y += yDir;
     }
@@ -31,6 +38,20 @@ public class Snake{
             xPositions.add(x);
             yPositions.add(y);
         }
+    }
+
+    public boolean collidesWithWall(){
+        if(x <= 0 || x >= gameSize || y <= 0 || y >= gameSize)
+            return true;
+        return false;
+    }
+
+    public boolean collidesWithTail(){
+        for(int i = 0; i < xPositions.size(); i++){
+            if(xPositions.get(i) == x && yPositions.get(i) == y)
+                return true;
+        }
+        return false;
     }
 
     public boolean collides(int x, int y){
@@ -51,12 +72,13 @@ public class Snake{
         
         strokeWeight(0);
 
-        fill(50, 255, 50);
-        rect(x * scale, y * scale, squareWidth, squareWidth);
 
         fill(0, 255, 0);
         for(int i = 0; i < xPositions.size(); i++)
-            rect(xPositions.get(x) * scale, xPositions.get(y) * scale, squareWidth, squareWidth);
+            rect(xPositions.get(i) * scale + scale, (yPositions.get(i) - 0) * scale + scale * 3, squareWidth, squareWidth);
+            
+        fill(150, 255, 150);
+        rect(x * scale + scale, (y - 0) * scale + scale * 3, squareWidth, squareWidth);
 
         popStyle();
         popMatrix();

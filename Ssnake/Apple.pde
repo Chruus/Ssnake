@@ -12,7 +12,7 @@ public class Apple{
 
         strokeWeight(0);
         fill(255, 0, 0);
-        rect(x * scale, y * scale, squareWidth, squareWidth);
+        rect(x * scale + scale, (y - 0) * scale + scale * 3, squareWidth, squareWidth);
 
         popStyle();
         popMatrix();
@@ -22,7 +22,16 @@ public class Apple{
         x = (int)(Math.random() * gameSize);
         y = (int)(Math.random() * gameSize);
 
+        println(snake.x(), snake.y(), x, y);
         if(snake.collides(x, y))
             respawn(snake);
+    }
+
+    public int x(){
+        return x;
+    }
+
+    public int y(){
+        return y;
     }
 }
