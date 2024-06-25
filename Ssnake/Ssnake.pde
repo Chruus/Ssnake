@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.*;
 
 void settings(){
-    size(16*32 + 16*2, 16*32 + 16*4);
+    size(16*32 + 16*2, 16*32 + 16*3);
 }
 
 void setup(){
@@ -26,11 +26,10 @@ boolean inGame, inPause;
 Queue<Integer> inputs;
 
 void draw(){
-    background(0);
-
+    background(20);
+    displayHUD();
     apple.display();
     snake.display();
-    displayHUD();
 
     findDeltaTime();
     if(deltaTime < 133.3333)
@@ -45,6 +44,9 @@ void draw(){
 
     snake.move();
     if(snake.collidesWithTail() || snake.collidesWithWall()){
+        background(20);
+        displayHUD();
+        apple.display();
         snake.display();
         stop();
     }
@@ -54,10 +56,12 @@ private void displayHUD(){
     pushMatrix();
     pushStyle();
     
-    strokeWeight(0);
-    fill(125);
+    noStroke();
+    fill(45);
     rect(0, 0, gameSize * scale + scale * 2, scale * 3);
     rect(0, 0, scale, gameSize * scale + scale * 4);
+    rect(0, height - scale, gameSize * scale + scale * 2, scale);
+    rect(width - scale, 0, scale, gameSize * scale + scale * 4);
 
     popStyle();
     popMatrix();

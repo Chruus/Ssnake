@@ -41,7 +41,7 @@ public class Snake{
     }
 
     public boolean collidesWithWall(){
-        if(x <= 0 || x >= gameSize || y <= 0 || y >= gameSize)
+        if(x < 0 || x >= gameSize || y < 0 || y >= gameSize - 1)
             return true;
         return false;
     }
